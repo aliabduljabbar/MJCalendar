@@ -92,10 +92,15 @@ open class MJPeriodView: MJComponentView {
         let monthCount = MJConfiguration.PeriodType.month.weeksCount()
         if self.weeks?.count == monthCount {
             let middleDate = self.weeks![3].date
-            return (middleDate! as NSDate).atEndOfMonth()
+            if #available(iOS 10.0, *) {
+                return (middleDate! as NSDate).atEndOfMonth()
+            } else {
+                // Fallback on earlier versions
+            }
         } else {
             return endingDate()
         }
+        return endingDate()
     }
     
     open func isDateInPeriod(_ date: Date) -> Bool {

@@ -129,10 +129,14 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     }
     
     func isDateLaterThanMax(_ date: Date) -> Bool {
-        if let maxDate = (configuration.maxDate as? NSDate)?.atEndOfDay() {
-            if (date as NSDate).isLaterThanDate(maxDate) {
-                return true
+        if #available(iOS 10.0, *) {
+            if let maxDate = (configuration.maxDate as? NSDate)?.atEndOfDay() {
+                if (date as NSDate).isLaterThanDate(maxDate) {
+                    return true
+                }
             }
+        } else {
+            // Fallback on earlier versions
         }
         
         return false
