@@ -224,7 +224,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
                 ? self.retroPeriodDate(periodDate) : periodDate
             self.calendarDelegate?.calendar(self, didChangePeriod: periodDate, bySwipe: false)
         }
-        //self.date = validatedDate
+        self.date = validatedDate
         self.setPeriodViews()
     }
     
@@ -235,7 +235,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             self.visiblePeriodDate = periodDate
             self.calendarDelegate?.calendar(self, didChangePeriod: periodDate, bySwipe: false)
         }
-        self.date = validatedDate
+        //self.date = validatedDate
         self.setPeriodViews()
     }
     
