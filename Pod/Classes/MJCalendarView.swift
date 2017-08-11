@@ -23,7 +23,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     var weekLabelsView: MJWeekLabelsView?
     var periodsContainerView: UIScrollView?
     
-    var date: Date
+    open var date: Date
     var visiblePeriodDate: Date!
     var currentFrame = CGRect.zero
     weak open var calendarDelegate: MJCalendarViewDelegate?
@@ -228,7 +228,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.setPeriodViews()
     }
     
-    func selectNewPeriod(_ date: Date) {
+    open func selectNewPeriod(_ date: Date) {
         let validatedDate = dateInRange(date)
         if !self.isDateAlreadyShown(validatedDate) {
             let periodDate = self.startDate(validatedDate, withOtherMonth: false)
