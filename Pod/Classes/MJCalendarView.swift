@@ -235,7 +235,17 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             self.visiblePeriodDate = periodDate
             self.calendarDelegate?.calendar(self, didChangePeriod: periodDate, bySwipe: false)
         }
-        //self.date = validatedDate
+        self.setPeriodViews()
+    }
+    
+    open func goToCurrentDay() {
+        let validatedDate = dateInRange(NSDate().atStartOfDay())
+        if !self.isDateAlreadyShown(validatedDate) {
+            let periodDate = self.startDate(validatedDate, withOtherMonth: false)
+            self.visiblePeriodDate = periodDate
+            self.calendarDelegate?.calendar(self, didChangePeriod: periodDate, bySwipe: false)
+        }
+        self.date = validatedDate
         self.setPeriodViews()
     }
     
