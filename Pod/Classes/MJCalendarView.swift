@@ -118,7 +118,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return !(self.isDateEarlierThanMin(startDateOfPeriod!) || self.isDateLaterThanMax(endDateOfPeriod))
     }
     
-    func isDateEarlierThanMin(_ date: Date) -> Bool {
+    open func isDateEarlierThanMin(_ date: Date) -> Bool {
         if let minDate = (configuration.minDate as? NSDate)?.atStartOfDay() {
             if (date as NSDate).isEarlierThanDate(minDate) {
                 return true
@@ -128,7 +128,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return false
     }
     
-    func isDateLaterThanMax(_ date: Date) -> Bool {
+    open func isDateLaterThanMax(_ date: Date) -> Bool {
         if #available(iOS 10.0, *) {
             if let maxDate = (configuration.maxDate as? NSDate)?.atEndOfDay() {
                 if (date as NSDate).isLaterThanDate(maxDate) {
@@ -254,6 +254,16 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
             selectNewPeriod(nextPeriodDate as Date)
             calendarDelegate?.calendar(self, didChangePeriod: nextPeriodDate as Date, bySwipe: true)
         }
+    }
+    
+    open func isLastPeriod() -> Bool {
+        let endDateOfPeriod = nextPeriodDate(self.visiblePeriodDate, withOtherMonth: false)
+        return isDateLaterThanMax(endDateOfPeriod)
+    }
+    
+    open func isFirstPeriod() -> Bool {
+        let startDateOfPeriod = self.visiblePeriodDate
+        return isDateEarlierThanMin(startDateOfPeriod)
     }
     
     open func moveToPreviousPeriod() {
