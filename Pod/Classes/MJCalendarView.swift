@@ -24,7 +24,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     var periodsContainerView: UIScrollView?
     
     open var date: Date
-    var visiblePeriodDate: Date!
+    open var visiblePeriodDate: Date!
     var currentFrame = CGRect.zero
     weak open var calendarDelegate: MJCalendarViewDelegate?
     var isAnimating = false
