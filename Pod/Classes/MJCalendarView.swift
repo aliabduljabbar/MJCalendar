@@ -112,7 +112,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.currentPage = self.periods!.index(of: currentPeriodView)
     }
     
-    func shouldChangePeriodsRange() -> Bool {
+    open func shouldChangePeriodsRange() -> Bool {
         let startDateOfPeriod = self.visiblePeriodDate
         let endDateOfPeriod = nextPeriodDate(self.visiblePeriodDate, withOtherMonth: false)
         return !(self.isDateEarlierThanMin(startDateOfPeriod!) || self.isDateLaterThanMax(endDateOfPeriod))
@@ -263,7 +263,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     
     open func isFirstPeriod() -> Bool {
         let startDateOfPeriod = self.visiblePeriodDate
-        return isDateEarlierThanMin(startDateOfPeriod)
+        return isDateEarlierThanMin(startDateOfPeriod!)
     }
     
     open func moveToPreviousPeriod() {
