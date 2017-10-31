@@ -45,7 +45,7 @@ open class MJDayView: MJComponentView {
         self.addGestureRecognizer(tap)
     }
     
-    func didTap() {
+    @objc func didTap() {
         if !self.delegate.isDateOutOfRange(self, date: self.date) {
             self.delegate.componentView(self, didSelectDate: self.date)
         }
@@ -100,7 +100,7 @@ open class MJDayView: MJComponentView {
         
         let isToday = self.todayDate.timeIntervalSince1970 == self.date.timeIntervalSince1970
         if isToday {
-            let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
+            let underlineAttribute = [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]
             self.label.attributedText = NSAttributedString(string: text, attributes: underlineAttribute)
         } else {
             self.label.attributedText = NSAttributedString(string: text)
