@@ -152,8 +152,9 @@ open class MJDayView: MJComponentView {
             && self.delegate.configurationWithComponent(self).selectedDayType == .filled {
                 self.label.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
         } else if self.isSameMonth {
-            if let backgroundColor = self.delegate.componentView(self, backgroundColorForDate: self.date) {
+            if let backgroundColor = self.delegate.componentView(self, textColorForDate: self.date) {
                 self.label.backgroundColor = backgroundColor
+                self.label.backgroundColor = UIColor(red: 255/255, green: 221/255, blue: 105/255, alpha: 1.0)
             } else {
                 if self.delegate.isDateOutOfRange(self, date: self.date) {
                     self.label.backgroundColor = self.delegate.configurationWithComponent(self).outOfRangeDayBackgroundColor
