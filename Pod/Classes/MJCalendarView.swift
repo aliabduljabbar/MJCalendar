@@ -10,7 +10,7 @@ import UIKit
 import NSDate_Escort
 import UIView_JMFrame
 
-public protocol MJCalendarViewDelegate: NSObjectProtocol {
+@objc public protocol MJCalendarViewDelegate: NSObjectProtocol {
     func calendar(_ calendarView: MJCalendarView, didChangePeriod periodDate: Date, bySwipe: Bool)
     func calendar(_ calendarView: MJCalendarView, didSelectDate date: Date)
     func calendar(_ calendarView: MJCalendarView, backgroundForDate date: Date) -> UIColor?
@@ -26,7 +26,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     open var date: Date
     open var visiblePeriodDate: Date!
     var currentFrame = CGRect.zero
-    weak open var calendarDelegate: MJCalendarViewDelegate?
+    @objc weak open var calendarDelegate: MJCalendarViewDelegate?
     var isAnimating = false
     
     var currentPage: Int!
@@ -112,13 +112,13 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.currentPage = self.periods!.index(of: currentPeriodView)
     }
     
-    open func shouldChangePeriodsRange() -> Bool {
+    @objc open func shouldChangePeriodsRange() -> Bool {
         let startDateOfPeriod = self.visiblePeriodDate
         let endDateOfPeriod = nextPeriodDate(self.visiblePeriodDate, withOtherMonth: false)
         return !(self.isDateEarlierThanMin(startDateOfPeriod!) || self.isDateLaterThanMax(endDateOfPeriod))
     }
     
-    open func isDateEarlierThanMin(_ date: Date) -> Bool {
+    @objc open func isDateEarlierThanMin(_ date: Date) -> Bool {
         if let minDate = (configuration.minDate as? NSDate)?.atStartOfDay() {
             if (date as NSDate).isEarlierThanDate(minDate) {
                 return true
@@ -128,7 +128,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return false
     }
     
-    open func isDateLaterThanMax(_ date: Date) -> Bool {
+    @objc open func isDateLaterThanMax(_ date: Date) -> Bool {
         if #available(iOS 10.0, *) {
             if let maxDate = (configuration.maxDate as? NSDate)?.atEndOfDay() {
                 if (date as NSDate).isLaterThanDate(maxDate) {
@@ -216,7 +216,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         }
     }
     
-    open func selectDate(_ date: Date) {
+    @objc open func selectDate(_ date: Date) {
         let validatedDate = dateInRange(date)
         if !self.isDateAlreadyShown(validatedDate) {
             let periodDate = self.startDate(validatedDate, withOtherMonth: false)
@@ -228,7 +228,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.setPeriodViews()
     }
     
-    open func selectNewPeriod(_ date: Date) {
+    @objc open func selectNewPeriod(_ date: Date) {
         let validatedDate = dateInRange(date)
         if !self.isDateAlreadyShown(validatedDate) {
             let periodDate = self.startDate(validatedDate, withOtherMonth: false)
@@ -238,7 +238,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.setPeriodViews()
     }
     
-    open func goToCurrentDay() {
+    @objc open func goToCurrentDay() {
         let validatedDate = dateInRange(NSDate().atStartOfDay())
         if !self.isDateAlreadyShown(validatedDate) {
             let periodDate = self.startDate(validatedDate, withOtherMonth: false)
@@ -249,24 +249,24 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         self.setPeriodViews()
     }
     
-    open func moveToNextPeriod() {
+    @objc open func moveToNextPeriod() {
         if let nextPeriodDate = self.periods?.last?.startingPeriodDate() {
             selectNewPeriod(nextPeriodDate as Date)
             calendarDelegate?.calendar(self, didChangePeriod: nextPeriodDate as Date, bySwipe: true)
         }
     }
     
-    open func isLastPeriod() -> Bool {
+    @objc open func isLastPeriod() -> Bool {
         let endDateOfPeriod = nextPeriodDate(self.visiblePeriodDate, withOtherMonth: false)
         return isDateLaterThanMax(endDateOfPeriod)
     }
     
-    open func isFirstPeriod() -> Bool {
+    @objc open func isFirstPeriod() -> Bool {
         let startDateOfPeriod = self.visiblePeriodDate
         return isDateEarlierThanMin(startDateOfPeriod!)
     }
     
-    open func moveToPreviousPeriod() {
+    @objc open func moveToPreviousPeriod() {
         if let previousPeriodDate = self.periods?.first?.startingPeriodDate() {
             selectNewPeriod(previousPeriodDate as Date)
             calendarDelegate?.calendar(self, didChangePeriod: previousPeriodDate as Date, bySwipe: true)
@@ -336,7 +336,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
     
     // MARK: UIScrollViewDelegate
     
-    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    @objc open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.width
         let ratio = scrollView.contentOffset.x / pageWidth
         let page = Int(ratio)
@@ -358,7 +358,7 @@ open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
         return periods![page].startingPeriodDate() as Date
     }
     
-    open func reloadView() {
+    @objc open func reloadView() {
         self.visiblePeriodDate = self.recalculatedVisibleDate(false)
         self.clearView()
         self.setPeriodViews()
