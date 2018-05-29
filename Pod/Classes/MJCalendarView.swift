@@ -18,14 +18,14 @@ public protocol MJCalendarViewDelegate: NSObjectProtocol {
 }
 
 open class MJCalendarView: UIView, UIScrollViewDelegate, MJComponentDelegate {
-    open var configuration: MJConfiguration
-    var periods: [MJPeriodView]?
-    var weekLabelsView: MJWeekLabelsView?
-    var periodsContainerView: UIScrollView?
+    @objc open var configuration: MJConfiguration
+    @objc var periods: [MJPeriodView]?
+    @objc var weekLabelsView: MJWeekLabelsView?
+    @objc var periodsContainerView: UIScrollView?
     
-    var date: Date
-    var visiblePeriodDate: Date!
-    var currentFrame = CGRect.zero
+    @objc var date: Date
+    @objc var visiblePeriodDate: Date!
+    @objc var currentFrame = CGRect.zero
     weak open var calendarDelegate: MJCalendarViewDelegate?
     var isAnimating = false
     

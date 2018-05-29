@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct MJConfiguration {
+@objc public class MJConfiguration : NSObject {
     public enum PeriodType {
         case oneWeek, twoWeeks, threeWeeks, month
         func weeksCount() -> Int {

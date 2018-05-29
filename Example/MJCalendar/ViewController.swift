@@ -49,24 +49,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.calendarView.calendarDelegate = self
         
         // Set displayed period type. Available types: Month, ThreeWeeks, TwoWeeks, OneWeek
-        self.calendarView.configuration.periodType = .month
+        self.calendarView.configuration.periodType = .oneWeek
 
         // Set shape of day view. Available types: Circle, Square
-        self.calendarView.configuration.dayViewType = .circle
+        self.calendarView.configuration.dayViewType = .square
 
         // Set selected day display type. Available types: 
         // Border - Only border is colored with selected day color
         // Filled - Entire day view is filled with selected day color
-        self.calendarView.configuration.selectedDayType = .border
+        self.calendarView.configuration.selectedDayType = .filled
 
         // Set width of selected day border. Relevant only if selectedDayType = .Border
         self.calendarView.configuration.selectedBorderWidth = 1
+        
 
         // Set day text color
         self.calendarView.configuration.dayTextColor = UIColor(hexString: "6f787c")
 
         // Set day background color
-        self.calendarView.configuration.dayBackgroundColor = UIColor(hexString: "f0f0f0")
+        self.calendarView.configuration.dayBackgroundColor = UIColor.clear
 
         // Set selected day text color
         self.calendarView.configuration.selectedDayTextColor = UIColor.white
@@ -87,7 +88,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.calendarView.configuration.startDayType = .monday
 
         // Set number of letters presented in the week days label
-        self.calendarView.configuration.lettersInWeekDayLabel = .one
+        self.calendarView.configuration.lettersInWeekDayLabel = .three
 
         // Set day text font
         self.calendarView.configuration.dayTextFont = UIFont.systemFont(ofSize: 12)
@@ -99,14 +100,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.calendarView.configuration.dayViewSize = CGSize(width: 24, height: 24)
 
         //Set height of row with week's days
-        self.calendarView.configuration.rowHeight = 30
+        self.calendarView.configuration.rowHeight = 50
 
         // Set height of week's days names view
-        self.calendarView.configuration.weekLabelHeight = 25
+        self.calendarView.configuration.weekLabelHeight = 35
         
         // To commit all configuration changes execute reloadView method
         self.calendarView.reloadView()
+        
     }
+    
+    @IBAction func rightBarButtonTapped(_ sender: UIBarButtonItem) {
+        self.calendarView.moveToNextPeriod()
+    }
+    
     
     func setTitleWithDate(_ date: Date) {
         self.dateFormatter.dateFormat = "MMMM yy"
