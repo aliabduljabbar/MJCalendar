@@ -9,7 +9,7 @@
 import Foundation
 
 @objc public class MJConfiguration : NSObject {
-    public enum PeriodType {
+    @objc public enum PeriodType :Int {
         case oneWeek, twoWeeks, threeWeeks, month
         func weeksCount() -> Int {
             switch self {
@@ -21,15 +21,15 @@ import Foundation
         }
     }
     
-    public enum DayViewType {
+    @objc public enum DayViewType: Int {
         case square, circle
     }
     
-    public enum StartDayType {
+    @objc public enum StartDayType: Int {
         case monday, sunday
     }
 
-    public enum LettersInWeekDay: Int {
+    @objc public enum LettersInWeekDay: Int {
         case one = 1
         case two
         case three
