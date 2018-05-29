@@ -2,24 +2,30 @@ PODS:
   - HexColors (2.3.0)
   - MJCalendar (0.4.0):
     - NSDate-Escort (~> 1.5)
-    - UIView+JMFrame
+    - "UIView+JMFrame"
   - NSDate-Escort (1.7.0)
-  - UIView+JMFrame (0.1.2)
+  - "UIView+JMFrame (0.1.2)"
 
 DEPENDENCIES:
   - HexColors (~> 2.3)
   - MJCalendar (from `../`)
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - HexColors
+    - NSDate-Escort
+    - "UIView+JMFrame"
+
 EXTERNAL SOURCES:
   MJCalendar:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
   HexColors: 6ad3947c3447a055a3aa8efa859def096351fe5f
-  MJCalendar: a529b085b0b988ae7b493ce7c000946cc186bf0e
+  MJCalendar: 2f10f625c38d26881079f68a42200c57fe0b8846
   NSDate-Escort: 3469fefab423c094108c2e864416b61b6ac0edbc
-  UIView+JMFrame: a907974c9d34b1c300aef85ae2a1a5af746f2b8a
+  "UIView+JMFrame": a907974c9d34b1c300aef85ae2a1a5af746f2b8a
 
 PODFILE CHECKSUM: 4a8b5d26398ddbd90a4263c73faf04b15b5e7d20
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.0
