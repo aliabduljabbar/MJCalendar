@@ -39,11 +39,11 @@ import Foundation
         case filled, border
     }
 
-    public var lettersInWeekDayLabel:LettersInWeekDay = .three
+    @objc public var lettersInWeekDayLabel:LettersInWeekDay = .three
 
-    public var periodType: PeriodType = .month
-    public var dayViewType: DayViewType = .circle
-    public var startDayType: StartDayType = .monday
+    @objc public var periodType: PeriodType = .month
+    @objc public var dayViewType: DayViewType = .circle
+    @objc public var startDayType: StartDayType = .monday
     @objc public var selectedDayType: SelectedDayType = .border
     
     @objc public var rowHeight: CGFloat = 30
