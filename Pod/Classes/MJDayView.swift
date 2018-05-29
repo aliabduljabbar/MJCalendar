@@ -45,7 +45,7 @@ open class MJDayView: MJComponentView {
         self.addGestureRecognizer(tap)
     }
     
-    func didTap() {
+    @objc func didTap() {
         if !self.delegate.isDateOutOfRange(self, date: self.date) {
             self.delegate.componentView(self, didSelectDate: self.date)
         }
@@ -100,7 +100,7 @@ open class MJDayView: MJComponentView {
         
         let isToday = self.todayDate.timeIntervalSince1970 == self.date.timeIntervalSince1970
         if isToday {
-            let underlineAttribute = [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue]
+            let underlineAttribute = [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]
             self.label.attributedText = NSAttributedString(string: text, attributes: underlineAttribute)
         } else {
             self.label.attributedText = NSAttributedString(string: text)
@@ -152,8 +152,9 @@ open class MJDayView: MJComponentView {
             && self.delegate.configurationWithComponent(self).selectedDayType == .filled {
                 self.label.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
         } else if self.isSameMonth {
-            if let backgroundColor = self.delegate.componentView(self, backgroundColorForDate: self.date) {
+            if let backgroundColor = self.delegate.componentView(self, textColorForDate: self.date) {
                 self.label.backgroundColor = backgroundColor
+                self.label.backgroundColor = UIColor(red: 255/255, green: 221/255, blue: 105/255, alpha: 1.0)
             } else {
                 if self.delegate.isDateOutOfRange(self, date: self.date) {
                     self.label.backgroundColor = self.delegate.configurationWithComponent(self).outOfRangeDayBackgroundColor
