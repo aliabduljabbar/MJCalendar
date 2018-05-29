@@ -114,12 +114,17 @@ open class MJDayView: MJComponentView {
         self.label.layer.cornerRadius = labelCornerRadius
         let borderCornerRadius = self.delegate.configurationWithComponent(self).dayViewSize.width / 2
         self.borderView.layer.cornerRadius = borderCornerRadius
+        self.layer.cornerRadius = 3
+        self.clipsToBounds = true
     }
     
     func setViewBackgrounds() {
         if self.isSameMonth {
             if self.delegate.isDateOutOfRange(self, date: self.date) {
                 self.backgroundColor = self.delegate.configurationWithComponent(self).outOfRangeDayBackgroundColor
+            }else if self.delegate.componentView(self, isDateSelected: self.date)
+                && self.delegate.configurationWithComponent(self).selectedDayType == .filled {
+                self.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
             } else {
                 self.backgroundColor = self.delegate.configurationWithComponent(self).dayBackgroundColor
             }
