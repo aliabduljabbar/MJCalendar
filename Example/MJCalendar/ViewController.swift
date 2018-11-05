@@ -105,6 +105,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Set height of week's days names view
         self.calendarView.configuration.weekLabelHeight = 35
         
+        self.calendarView.configuration.minDate = Date()
+        
         // To commit all configuration changes execute reloadView method
         self.calendarView.reloadView()
         

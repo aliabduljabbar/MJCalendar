@@ -60,18 +60,19 @@ open class MJDayView: MJComponentView {
         self.label = UILabel()
         self.label.textAlignment = .center
         self.label.clipsToBounds = true
+        self.label.numberOfLines = 2
         self.addSubview(self.label)
     }
     
     override func updateFrame() {
         let labelSize = self.labelSize()
-        let labelFrame = CGRect(x: (self.width() - labelSize.width) / 2,
-                                    y: (self.height() - labelSize.height) / 2, width: labelSize.width, height: labelSize.height)
+        let labelFrame = CGRect(x: 0,
+                                y: (self.height() - labelSize.height) / 2, width: self.frame.width, height: labelSize.height)
         self.label.frame = labelFrame
         
         let dayViewSize = self.delegate.configurationWithComponent(self).dayViewSize
         let borderFrame = CGRect(x: (self.width() - dayViewSize.width) / 2,
-                                     y: (self.height() - dayViewSize.height) / 2, width: dayViewSize.width, height: dayViewSize.height)
+                                 y: (self.height() - dayViewSize.height) / 2, width: dayViewSize.width, height: dayViewSize.height)
         self.borderView.frame = borderFrame
     }
     
@@ -98,10 +99,12 @@ open class MJDayView: MJComponentView {
         let text = "\((self.date as NSDate).day)"
         self.label.text = text
         
-        let isToday = self.todayDate.timeIntervalSince1970 == self.date.timeIntervalSince1970
+        let isToday = Calendar.current.isDateInToday(date)//self.todayDate.timeIntervalSince1970 == self.date.timeIntervalSince1970
         if isToday {
-            let underlineAttribute = [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]
-            self.label.attributedText = NSAttributedString(string: text, attributes: underlineAttribute)
+            var underlineAttribute = [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]
+            var attributedText = NSMutableAttributedString(string: text+"\nTODAY", attributes: [:])
+            attributedText.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Gotham-Medium", size: 10), range: NSRange(location: text.count, length:(text+"\nTODAY").count-1))
+            self.label.attributedText = attributedText
         } else {
             self.label.attributedText = NSAttributedString(string: text)
         }
@@ -150,16 +153,17 @@ open class MJDayView: MJComponentView {
         } else {
             self.label.textColor = self.delegate.configurationWithComponent(self).otherMonthTextColor
         }
+        
     }
     
     func setBackgrounds() {
         if self.delegate.componentView(self, isDateSelected: self.date)
             && self.delegate.configurationWithComponent(self).selectedDayType == .filled {
-                self.label.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
+            self.label.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
         } else if self.isSameMonth {
             if let backgroundColor = self.delegate.componentView(self, textColorForDate: self.date) {
-                self.label.backgroundColor = backgroundColor
-                self.label.backgroundColor = UIColor(red: 255/255, green: 221/255, blue: 105/255, alpha: 1.0)
+                self.label.backgroundColor = .clear
+                //self.label.backgroundColor = UIColor(red: 255/255, green: 221/255, blue: 105/255, alpha: 1.0)
             } else {
                 if self.delegate.isDateOutOfRange(self, date: self.date) {
                     self.label.backgroundColor = self.delegate.configurationWithComponent(self).outOfRangeDayBackgroundColor
@@ -170,6 +174,7 @@ open class MJDayView: MJComponentView {
         } else {
             self.label.backgroundColor = self.delegate.configurationWithComponent(self).otherMonthBackgroundColor
         }
+        self.label.backgroundColor = .clear
     }
     
     func setBorder() {
