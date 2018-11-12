@@ -101,9 +101,12 @@ open class MJDayView: MJComponentView {
         
         let isToday = Calendar.current.isDateInToday(date)//self.todayDate.timeIntervalSince1970 == self.date.timeIntervalSince1970
         if isToday {
+            let todayString = text+"\nTODAY"
+            let range = todayString.range(of: "TODAY") //[testString rangeOfString:@"how are you doing"];
+            let nsRange = todayString.nsRange(from: range!)
             var underlineAttribute = [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]
-            var attributedText = NSMutableAttributedString(string: text+"\nTODAY", attributes: [:])
-            attributedText.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Gotham-Medium", size: 10), range: NSRange(location: text.count, length:(text+"\nTODAY").count-1))
+            var attributedText = NSMutableAttributedString(string: todayString, attributes: [:])
+            attributedText.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Gotham-Medium", size: 10), range: nsRange)
             self.label.attributedText = attributedText
         } else {
             self.label.attributedText = NSAttributedString(string: text)
@@ -180,5 +183,11 @@ open class MJDayView: MJComponentView {
     func setBorder() {
         self.borderView.backgroundColor = self.delegate.configurationWithComponent(self).selectedDayBackgroundColor
         self.borderView.isHidden = !(self.delegate.componentView(self, isDateSelected: self.date) && isSameMonth)
+    }
+}
+
+extension StringProtocol where Index == String.Index {
+    func nsRange(from range: Range<Index>) -> NSRange {
+        return NSRange(range, in: self)
     }
 }
