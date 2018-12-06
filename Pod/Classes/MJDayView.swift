@@ -108,6 +108,8 @@ open class MJDayView: MJComponentView {
             var attributedText = NSMutableAttributedString(string: todayString, attributes: [:])
             attributedText.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Gotham-Medium", size: 10), range: nsRange)
             self.label.attributedText = attributedText
+            self.label.adjustsFontSizeToFitWidth = true
+            self.label.minimumScaleFactor = 0.5
         } else {
             self.label.attributedText = NSAttributedString(string: text)
         }
