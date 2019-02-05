@@ -95,10 +95,14 @@ open class MJDayView: MJComponentView {
     }
     
     func setText() {
-        self.label.font = self.delegate.configurationWithComponent(self).dayTextFont
-        let text = "\((self.date as NSDate).day)"
-        self.label.text = text
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        dateFormatter.timeZone = TimeZone.ReferenceType.default
         
+        self.label.font = self.delegate.configurationWithComponent(self).dayTextFont
+        let text = dateFormatter.string(from: date)//"\((self.date as NSDate).day)"
+        self.label.text = text
+
         let isToday = Calendar.current.isDateInToday(date)//self.todayDate.timeIntervalSince1970 == self.date.timeIntervalSince1970
         if isToday {
             let todayString = text+"\nTODAY"
